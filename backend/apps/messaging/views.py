@@ -29,11 +29,11 @@ class MessageListCreateView(generics.ListCreateAPIView):
     permission_classes=[permissions.IsAuthenticated]
     def get_queryset(self):
         conv_id=self.kwargs['conversation_id']
-        conversation=get_object_or_404(Conversation, id=conv_id, Q(buyer=self.request.user)|Q(seller=self.request.user))
+        conversation = get_object_or_404(Conversation, Q(buyer=self.request.user) | Q(seller=self.request.user), id=conv_id)
         conversation.messages.filter(is_read=False).exclude(sender=self.request.user).update(is_read=True)
         return conversation.messages.all()
     def perform_create(self,serializer):
         conv_id=self.kwargs['conversation_id']
-        conversation=get_object_or_404(Conversation, id=conv_id, Q(buyer=self.request.user)|Q(seller=self.request.user))
+        conversation = get_object_or_404(Conversation, Q(buyer=self.request.user) | Q(seller=self.request.user), id=conv_id)
         serializer.save(conversation=conversation, sender=self.request.user)
         conversation.save()
