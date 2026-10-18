@@ -1,0 +1,178 @@
+
+
+===== Environment =====
+date: Sun Oct 18 20:52:56 WCAST 2026
+pwd:  /c/Users/ALIVA-TECH/Desktop/projects/fupre-campus-marketplace-production-fixed-FINAL (2)
+python312: C:/Users/ALIVA-TECH/AppData/Local/Programs/Python/Python312/python.exe
+
+
+===== Backend virtual environment =====
+
+$ ./venv/Scripts/python.exe --version
+Python 3.12.10
+[exit 0]
+
+$ ./venv/Scripts/python.exe -m pip install --upgrade pip
+Requirement already satisfied: pip in .\venv\Lib\site-packages (26.2.1)
+[exit 0]
+
+$ ./venv/Scripts/python.exe -m pip install -r requirements.txt
+Requirement already satisfied: Django==4.2.20 in .\venv\Lib\site-packages (from -r requirements.txt (line 1)) (4.2.20)
+Requirement already satisfied: djangorestframework==3.15.2 in .\venv\Lib\site-packages (from -r requirements.txt (line 2)) (3.15.2)
+Requirement already satisfied: djangorestframework-simplejwt==5.3.1 in .\venv\Lib\site-packages (from -r requirements.txt (line 3)) (5.3.1)
+Requirement already satisfied: django-cors-headers==4.4.0 in .\venv\Lib\site-packages (from -r requirements.txt (line 4)) (4.4.0)
+Requirement already satisfied: psycopg2-binary==2.9.10 in .\venv\Lib\site-packages (from -r requirements.txt (line 5)) (2.9.10)
+Requirement already satisfied: python-dotenv==1.0.1 in .\venv\Lib\site-packages (from -r requirements.txt (line 6)) (1.0.1)
+Requirement already satisfied: Pillow==10.4.0 in .\venv\Lib\site-packages (from -r requirements.txt (line 7)) (10.4.0)
+Requirement already satisfied: gunicorn==22.0.0 in .\venv\Lib\site-packages (from -r requirements.txt (line 8)) (22.0.0)
+Requirement already satisfied: whitenoise==6.7.0 in .\venv\Lib\site-packages (from -r requirements.txt (line 9)) (6.7.0)
+Requirement already satisfied: dj-database-url==2.2.0 in .\venv\Lib\site-packages (from -r requirements.txt (line 10)) (2.2.0)
+Requirement already satisfied: asgiref<4,>=3.6.0 in .\venv\Lib\site-packages (from Django==4.2.20->-r requirements.txt (line 1)) (3.12.1)
+Requirement already satisfied: sqlparse>=0.3.1 in .\venv\Lib\site-packages (from Django==4.2.20->-r requirements.txt (line 1)) (0.6.0)
+Requirement already satisfied: tzdata in .\venv\Lib\site-packages (from Django==4.2.20->-r requirements.txt (line 1)) (2026.5)
+Requirement already satisfied: pyjwt<3,>=1.7.1 in .\venv\Lib\site-packages (from djangorestframework-simplejwt==5.3.1->-r requirements.txt (line 3)) (2.15.1)
+Requirement already satisfied: packaging in .\venv\Lib\site-packages (from gunicorn==22.0.0->-r requirements.txt (line 8)) (26.3)
+Requirement already satisfied: typing-extensions>=3.10.0.0 in .\venv\Lib\site-packages (from dj-database-url==2.2.0->-r requirements.txt (line 10)) (4.16.0)
+[exit 0]
+
+
+===== Django checks =====
+
+$ ./venv/Scripts/python.exe manage.py check
+System check identified no issues (0 silenced).
+[exit 0]
+
+$ ./venv/Scripts/python.exe manage.py makemigrations --check --dry-run
+No changes detected
+[exit 0]
+
+$ ./venv/Scripts/python.exe manage.py migrate
+Operations to perform:
+  Apply all migrations: admin, api, auth, contenttypes, sessions
+Running migrations:
+  Applying api.0002_alter_user_groups_alter_user_username... OK
+[exit 0]
+
+$ ./venv/Scripts/python.exe manage.py seed_marketplace
+Seeding categories...
+Seeding users per Fig 4.3...
+Seeding demo products...
+Seeding demo messages...
+Seeded 8 categories, 5 users, 12 products (0 new), 5 messages
+[exit 0]
+
+$ ./venv/Scripts/python.exe manage.py test api.tests -v 2
+Creating test database for alias 'default' ('file:memorydb_default?mode=memory&cache=shared')...
+Found 27 test(s).
+Operations to perform:
+  Synchronize unmigrated apps: corsheaders, messages, rest_framework, rest_framework_simplejwt, staticfiles
+  Apply all migrations: admin, api, auth, contenttypes, sessions
+Synchronizing apps without migrations:
+  Creating tables...
+    Running deferred SQL...
+Running migrations:
+  Applying contenttypes.0001_initial... OK
+  Applying contenttypes.0002_remove_content_type_name... OK
+  Applying auth.0001_initial... OK
+  Applying auth.0002_alter_permission_name_max_length... OK
+  Applying auth.0003_alter_user_email_max_length... OK
+  Applying auth.0004_alter_user_username_opts... OK
+  Applying auth.0005_alter_user_last_login_null... OK
+  Applying auth.0006_require_contenttypes_0002... OK
+  Applying auth.0007_alter_validators_add_error_messages... OK
+  Applying auth.0008_alter_user_username_max_length... OK
+  Applying auth.0009_alter_user_last_name_max_length... OK
+  Applying auth.0010_alter_group_name_max_length... OK
+  Applying auth.0011_update_proxy_permissions... OK
+  Applying auth.0012_alter_user_first_name_max_length... OK
+  Applying api.0001_initial... OK
+  Applying admin.0001_initial... OK
+  Applying admin.0002_logentry_remove_auto_add... OK
+  Applying admin.0003_logentry_add_action_flag_choices... OK
+  Applying api.0002_alter_user_groups_alter_user_username... OK
+  Applying sessions.0001_initial... OK
+System check identified no issues (0 silenced).
+test_admin_can_deactivate_user_but_student_cannot_change_own_status (api.tests.MarketplaceAPITestCase.test_admin_can_deactivate_user_but_student_cannot_change_own_status) ... C:\Users\ALIVA-TECH\Desktop\projects\fupre-campus-marketplace-production-fixed-FINAL (2)\backend\venv\Lib\site-packages\django\core\handlers\base.py:61: UserWarning: No directory at: C:\Users\ALIVA-TECH\Desktop\projects\fupre-campus-marketplace-production-fixed-FINAL (2)\backend\staticfiles\
+  mw_instance = middleware(adapted_handler)
+ok
+test_admin_can_list_users_and_view_stats (api.tests.MarketplaceAPITestCase.test_admin_can_list_users_and_view_stats) ... C:\Users\ALIVA-TECH\Desktop\projects\fupre-campus-marketplace-production-fixed-FINAL (2)\backend\venv\Lib\site-packages\rest_framework\pagination.py:207: UnorderedObjectListWarning: Pagination may yield inconsistent results with an unordered object_list: <class 'api.models.User'> QuerySet.
+  paginator = self.django_paginator_class(queryset, page_size)
+ok
+test_admin_can_moderate_listing (api.tests.MarketplaceAPITestCase.test_admin_can_moderate_listing) ... ok
+test_cannot_message_self (api.tests.MarketplaceAPITestCase.test_cannot_message_self) ... ok
+test_category_slug_is_generated (api.tests.MarketplaceAPITestCase.test_category_slug_is_generated) ... ok
+test_conversation_query_is_scoped (api.tests.MarketplaceAPITestCase.test_conversation_query_is_scoped) ... ok
+test_favorite_create_list_and_idempotence (api.tests.MarketplaceAPITestCase.test_favorite_create_list_and_idempotence) ... ok
+test_favorite_rejects_missing_product (api.tests.MarketplaceAPITestCase.test_favorite_rejects_missing_product) ... ok
+test_login_and_current_user (api.tests.MarketplaceAPITestCase.test_login_and_current_user) ... ok
+test_message_sender_is_derived_and_participants_can_read (api.tests.MarketplaceAPITestCase.test_message_sender_is_derived_and_participants_can_read) ... ok
+test_messages_are_immutable (api.tests.MarketplaceAPITestCase.test_messages_are_immutable) ... ok
+test_other_student_cannot_edit_or_delete_listing (api.tests.MarketplaceAPITestCase.test_other_student_cannot_edit_or_delete_listing) ... ok
+test_other_student_cannot_update_status (api.tests.MarketplaceAPITestCase.test_other_student_cannot_update_status) ... ok
+test_owner_can_edit_listing_and_status (api.tests.MarketplaceAPITestCase.test_owner_can_edit_listing_and_status) ... ok
+test_product_creation_sets_seller_from_token (api.tests.MarketplaceAPITestCase.test_product_creation_sets_seller_from_token) ... ok
+test_product_detail_and_view_increment (api.tests.MarketplaceAPITestCase.test_product_detail_and_view_increment) ... ok
+test_product_price_must_be_positive (api.tests.MarketplaceAPITestCase.test_product_price_must_be_positive) ... ok
+test_public_profile_hides_private_fields (api.tests.MarketplaceAPITestCase.test_public_profile_hides_private_fields) ... ok
+test_public_search_and_filters (api.tests.MarketplaceAPITestCase.test_public_search_and_filters) ... ok
+test_records_persist_after_write (api.tests.MarketplaceAPITestCase.test_records_persist_after_write) ... ok
+test_registration_applies_password_validators (api.tests.MarketplaceAPITestCase.test_registration_applies_password_validators) ... ok
+test_registration_forces_student_role (api.tests.MarketplaceAPITestCase.test_registration_forces_student_role) ... ok
+test_registration_rejects_duplicate_email_case_insensitive (api.tests.MarketplaceAPITestCase.test_registration_rejects_duplicate_email_case_insensitive) ... ok
+test_registration_requires_email (api.tests.MarketplaceAPITestCase.test_registration_requires_email) ... ok
+test_student_cannot_list_users_or_view_admin_stats (api.tests.MarketplaceAPITestCase.test_student_cannot_list_users_or_view_admin_stats) ... ok
+test_student_cannot_manage_categories (api.tests.MarketplaceAPITestCase.test_student_cannot_manage_categories) ... ok
+test_unrelated_student_cannot_read_messages (api.tests.MarketplaceAPITestCase.test_unrelated_student_cannot_read_messages) ... ok
+
+----------------------------------------------------------------------
+Ran 27 tests in 42.459s
+
+OK
+Destroying test database for alias 'default' ('file:memorydb_default?mode=memory&cache=shared')...
+[exit 0]
+
+
+===== Frontend =====
+
+$ npm --version
+10.8.2
+[exit 0]
+
+$ npm install
+
+added 159 packages, and audited 160 packages in 1m
+
+30 packages are looking for funding
+  run `npm fund` for details
+
+11 vulnerabilities (5 moderate, 6 high)
+
+To address issues that do not require attention, run:
+  npm audit fix
+
+To address all issues (including breaking changes), run:
+  npm audit fix --force
+
+Run `npm audit` for details.
+[exit 0]
+
+$ npm run build
+
+> campus-marketplace-frontend@1.0.0 build
+> vite build
+
+[36mvite v5.4.21 [32mbuilding for production...[36m[39m
+transforming...
+[32m✓[39m 1545 modules transformed.
+rendering chunks...
+computing gzip size...
+[2mdist/[22m[32mindex.html                 [39m[1m[2m  0.76 kB[22m[1m[22m[2m │ gzip:  0.44 kB[22m
+[2mdist/[22m[35massets/index-h5kC9pdJ.css  [39m[1m[2m 22.17 kB[22m[1m[22m[2m │ gzip:  5.09 kB[22m
+[2mdist/[22m[36massets/index-BJMS2UiJ.js   [39m[1m[2m300.05 kB[22m[1m[22m[2m │ gzip: 89.77 kB[22m
+[32m✓ built in 8.71s[39m
+[exit 0]
+
+
+===== Result =====
+ALL COMMANDS EXITED 0
+Log: /c/Users/ALIVA-TECH/Desktop/projects/fupre-campus-marketplace-production-fixed-FINAL (2)/docs/verification-log.txt

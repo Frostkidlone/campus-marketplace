@@ -1,12 +1,33 @@
-@"
-node_modules/
-dist/
-build/
-.env
-.env.*
-!.env.example
+# Python
+__pycache__/
+*.py[cod]
 .venv/
 venv/
-__pycache__/
-*.pyc
-"@ | Set-Content .gitignore
+*.sqlite3
+db.sqlite3
+media/
+staticfiles/
+
+# Secrets / local config
+.env
+.env.local
+
+# Node
+node_modules/
+dist/
+.vite/
+npm-debug.log*
+
+# Editors / OS
+.vscode/
+.idea/
+.DS_Store
+Thumbs.db
+
+# Portable PostgreSQL used by setup_postgres.sh
+tools/
+
+# Test / coverage
+.pytest_cache/
+.coverage
+htmlcov/
