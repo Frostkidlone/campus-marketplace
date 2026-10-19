@@ -31,12 +31,21 @@ if not DEBUG:
     SECURE_SSL_REDIRECT = os.getenv('SECURE_SSL_REDIRECT', 'True').strip().lower() in ('true', '1', 'yes')
     SECURE_PROXY_SSL_HEADER = ('HTTP_X_FORWARDED_PROTO', 'https')
 
-CORS_ALLOW_ALL_ORIGINS = False
-CSRF_TRUSTED_ORIGINS = [
-    origin.strip()
-    for origin in os.getenv('CSRF_TRUSTED_ORIGINS', '').split(',')
-    if origin.strip()
-]
+
+# CORS - Permissive only in DEBUG (local)
+if DEBUG:
+    CORS_ALLOW_ALL_ORIGINS = True
+else:
+    CORS_ALLOWED_ORIGINS = [
+        origin.strip().rstrip('/')
+        for origin in os.getenv(
+            'CORS_ALLOWED_ORIGINS',
+            'https://campus-marketplace-wheat-nine.vercel.app,https://campus-marketplace.vercel.app,https://fupre-marketplace.vercel.app'
+        ).split(',')
+        if origin.strip()
+    ]
+    CORS_ALLOW_ALL_ORIGINS = False
+
 
 # ALLOWED_HOSTS - production must be restricted, not ['*']
 ALLOWED_HOSTS_ENV = os.getenv('ALLOWED_HOSTS', '')
